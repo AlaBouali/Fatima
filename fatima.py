@@ -5,7 +5,7 @@ global v
 v=0
 class xer(threading.Thread):
  def run(self):
-  x=pointer
+  x=v
   while True:
    try:
     s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
